@@ -1,0 +1,4 @@
+pool:
+  name: Azure Pipelines
+  demands:
+    - Agent.Version -gtVersion 2.163.1
