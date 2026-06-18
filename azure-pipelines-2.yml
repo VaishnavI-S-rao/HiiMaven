@@ -1,4 +1,21 @@
+trigger:
+- main
+
 pool:
-  name: Azure Pipelines
-  demands:
-    - Agent.Version -gtVersion 2.163.1
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  jobs:
+  - job: MavenBuild
+    steps:
+    - task: Maven@4
+      inputs:
+        mavenPomFile: 'pom.xml'
+        goals: 'clean package'
+        publishJUnitResults: false
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: 'target'
+        ArtifactName: 'drop'
